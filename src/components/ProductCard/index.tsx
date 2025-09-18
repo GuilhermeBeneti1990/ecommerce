@@ -1,3 +1,5 @@
+import { CloseOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Button } from "../ui/Button";
 import styles from "./productCard.module.scss";
 
 interface IProductCardProps {
@@ -6,9 +8,10 @@ interface IProductCardProps {
     description: string;
     price: number;
     imageUrl: string;
+    isInCart?: boolean;
 }
 
-export function ProductCard({ id, title, description, price, imageUrl}: IProductCardProps) {
+export function ProductCard({ id, title, description, price, imageUrl, isInCart }: IProductCardProps) {
     return (
         <div className={styles.productCard}>
             <img src={imageUrl} alt="image" className={styles.productImage}/>
@@ -19,9 +22,22 @@ export function ProductCard({ id, title, description, price, imageUrl}: IProduct
                     <span className={styles.price}>R${price}</span>
                 </div>
 
-                <button>
-                    Adicionar ao Carrinho
-                </button>
+                <Button variant={isInCart ? "danger" : "primary"}>
+                    {isInCart ? 
+                        (
+                            <>
+                                <CloseOutlined />
+                                Remover do Carrinho
+                            </>
+                        ) :
+                        (
+                            <>
+                                <ShoppingCartOutlined />
+                                Adicionar ao Carrinho
+                            </>
+                        )
+                    }
+                </Button>
             </div>
         </div>
     )
